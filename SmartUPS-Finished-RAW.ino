@@ -24,7 +24,7 @@ int analogValue;
 
 SimpleTimer Timer;
 
-// MQTT Server 1
+// MQTT Server
 const char* mqtt_server = "broker.hivemq.com";
 const int mqtt_port = 1883; // Replace with the actual port if different
 const char* mqtt_user = "admin";
