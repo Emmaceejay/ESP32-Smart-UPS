@@ -2,7 +2,7 @@
     {
         "id": "0a8d24b7155cfe39",
         "type": "tab",
-        "label": "Flow1",
+        "label": "Flow1 (Github)",
         "disabled": false,
         "info": "",
         "env": []
@@ -115,7 +115,7 @@
         "z": "0a8d24b7155cfe39",
         "g": "1fa6a267bed81c34",
         "name": "function 18",
-        "func": "// let voltage = (msg.payload[\"sensor\"][\"analogValue\"])\n// let percentage = (msg.payload[\"sensor\"][\"batPercentage\"]).toFixed();\n\n// return[{\"payload\":voltage + \"V\"}];\n\n// // if(voltage){\n// //     msg.payload = voltage;\n// //     return [msg, null];\n\n// // }else if (percentage){\n// //     msg.payload = percentage;\n// //     return[null,msg];\n// // }\n\n\n\nlet analogvalue = msg.payload[\"sensor\"][\"analogValue\"];\nlet aveAnalogValue = 0;\nlet numSamples = 8;\nfor (let i = 0; i < numSamples; i++) {\n  aveAnalogValue += analogvalue / numSamples;\n}\n\nlet voltage = ((aveAnalogValue * 12.13) / (4096.00)).toFixed(1);\n//msg.payload = (voltage);\nlet percentCalc = Number(voltage)\n\nlet percentage = ((percentCalc/12.13)*(100/1)).toFixed(1);\n\nreturn [{\"payload\": voltage + \"V\"}, {\"payload\": percentage + \"%\"}];\n\n\n",
+        "func": "/*\ncalculations for voltage and percentage \nusing averaging calculated analog reading\n*/\n\nlet analogvalue = msg.payload[\"sensor\"][\"analogValue\"];\nlet aveAnalogValue = 0;\nlet numSamples = 8;\nfor (let i = 0; i < numSamples; i++) {\n  aveAnalogValue += analogvalue / numSamples;\n}\n\nlet voltage = ((aveAnalogValue * 12.13) / (4096.00)).toFixed(1);\n//msg.payload = (voltage);\nlet percentCalc = Number(voltage)\n\nlet percentage = ((percentCalc/12.13)*(100/1)).toFixed(1);\n\nreturn [{\"payload\": voltage + \"V\"}, {\"payload\": percentage + \"%\"}];\n\n\n",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -198,7 +198,7 @@
         "g": "1fa6a267bed81c34",
         "name": "Smart UPS Node-red Canculations",
         "info": "These flows contain calculations to determine voltage and battery percentage based on analog reading from the ESP32",
-        "x": 680,
+        "x": 560,
         "y": 180,
         "wires": []
     },
