@@ -1,7 +1,7 @@
 /*
-This sketch is to collect analog reading and send it to Node-red through MQTT Broker, also in this sketch wifimanger
-is used to manage wifi connection, a rest button to reset wifi and connect to a new one if needed, this makes it easy to 
-join diferent wifi connection with out having to flash and harcode each time.
+This sketch collects analog reading and sends it to Node-red through MQTT Broker, also in this sketch wifimanger
+is used to manage the wifi connection, and a reset button to reset the wifi and connect to a new one if needed, this makes it easy to 
+join different wifi connection without having to flash and hardcode each time.
 all calculations will be done on Node-red with this sketch.
 */
 
@@ -24,7 +24,7 @@ int analogValue;
 
 SimpleTimer Timer;
 
-// MQTT Server 1
+// MQTT Server
 const char* mqtt_server = "broker.hivemq.com";
 const int mqtt_port = 1883; // Replace with the actual port if different
 const char* mqtt_user = "admin";
