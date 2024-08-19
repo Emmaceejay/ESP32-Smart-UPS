@@ -14,7 +14,7 @@ Allows remote shutdown or reboot of the Raspberry Pi server via MQTT over the in
 Monitors and reports the battery status online, accessible from any location.
 
 ### 4. Status Alerts
-Sends notifications via email or SMS when the battery is fully charged or critically low, ensuring timely action.
+It sends notifications via email or SMS when the battery is fully charged or critically low, ensuring it's timely.
 
 ## Hardware Components
 
@@ -23,10 +23,10 @@ Sends notifications via email or SMS when the battery is fully charged or critic
 - Raspberry Pi 3B with power supply
 - Micro USB cable for ESP32 programming and power
 - Buck converter (12V to 5V for ESP32, Raspberry Pi, and relays)
-- Two 5V relays (5-pin)
-- T-block connectors (x2)
-- NPN transistors BC337 (x2)
-- 10k resistors (x2)
+- 5V relays (5-pin x1)
+- T-block connectors (x1)
+- NPN transistors BC337 (x1)
+- 10k resistors (x1)
 - 100k potentiometer (POT)
 - Toggle/Flip switch
 - Female USB connector
