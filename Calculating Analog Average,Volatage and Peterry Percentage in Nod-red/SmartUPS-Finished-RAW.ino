@@ -84,6 +84,16 @@ void callback(char* topic, byte* payload, unsigned int length) {   //callback in
 
 void reconnectMqtt() {
   while (!client.connected()) {
+
+     // Check if the reset button is pressed, this is not a mistake repetition, having this reset
+   //settings here help to break the loop in case the code gets stuck on the MQTT reconnect loop.
+    if (digitalRead(RESET_PIN) == LOW) {
+      Serial.println("Reset button pressed. Starting configuration portal...");
+      delay(2000);
+      wifiManager.resetSettings();
+      wifiManager.startConfigPortal("ESP32_SMART_UPS");
+    }
+    
     Serial.print("Attempting MQTT Server1 connection...");
     //check if MQTT is with user id & pass or not, then connect 
     if(client.connect("espclient") || client.connect("espclient", mqtt_user, mqtt_password)){
@@ -102,32 +112,15 @@ void reconnectMqtt() {
 
 void setup() {
   Serial.begin(115200);
-
   pinMode(relay1,OUTPUT);
   pinMode(relay2,OUTPUT);
-  
-  //analog read pin
-  pinMode(analogPin,INPUT_PULLUP);
-
+  pinMode(analogPin,INPUT_PULLUP); //analog read pin
   pinMode(RESET_PIN, INPUT_PULLUP); // Set the reset button pin as input with internal pull-up
- 
-  //Timer interval for sending sensor reading
-  Timer.setInterval(10000);
-
-  // Check if the reset button is pressed, this is not a mistake repetition, having this reset
-  //setings here helps to break the loop incase code gets stock on MQTT reconnect loop.
-  if (digitalRead(RESET_PIN) == LOW) {
-    Serial.println("Reset button pressed. Starting configuration portal...");
-    delay(2000);
-    wifiManager.resetSettings();
-    wifiManager.startConfigPortal("ESP32_SMART_UPS");
-  }
-
+  Timer.setInterval(10000); //Timer interval for sending sensor reading
+  
   setup_wifi();
-
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
-  
 }
 
 void loop() {
