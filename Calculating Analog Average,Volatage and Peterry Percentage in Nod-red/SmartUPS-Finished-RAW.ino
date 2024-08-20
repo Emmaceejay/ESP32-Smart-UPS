@@ -14,7 +14,6 @@ all calculations will be done on Node-red with this sketch.
 //Declaring PINS
 #define RESET_PIN 0  // Pin for the reset button
 #define relay1 14 //pin D14 on esp32
-#define relay2 12 //pin D12 on esp32
 #define analogPin 36 //analog pin
 
 //Variables
@@ -111,7 +110,6 @@ void reconnectMqtt() {
 void setup() {
   Serial.begin(115200);
   pinMode(relay1,OUTPUT);
-  pinMode(relay2,OUTPUT);
   pinMode(analogPin,INPUT_PULLUP); //analog read pin
   pinMode(RESET_PIN, INPUT_PULLUP); // Set the reset button pin as input with internal pull-up
   Timer.setInterval(10000); //Timer interval for sending sensor reading
