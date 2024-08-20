@@ -33,12 +33,40 @@
             "40ef7b155a34076a",
             "fe94c5bcabd121bf",
             "93c6692bd5807889",
-            "c8e08f480e2262aa"
+            "c8e08f480e2262aa",
+            "30099b880ba883c1",
+            "3728876c7f66ae94",
+            "25d86bebb4c30f4b",
+            "de090e760838bf17",
+            "e20d5c470a79d926",
+            "adeaae6096d3c32d",
+            "a8fd90139eecfcd2",
+            "30b77c82ec718101",
+            "e06136ba4c0b7aab",
+            "e2ce5f27caca7b61",
+            "dc2cdb3ef861a9b7",
+            "6ffea6cc021b3c9e",
+            "e8913ee57b9fb408",
+            "17eef50acf312767",
+            "bba5b426e096f51e",
+            "8b0c28e0658d855f",
+            "3fe23f43a64ebf39",
+            "db9da59c7e76b7d6",
+            "5495bcd642eedf1b",
+            "5d89fae3da42ee43",
+            "b730fadf65fb7641",
+            "71fa3bd66d17b9af",
+            "7017e49d5574d23d",
+            "3b514e52b84a585f",
+            "8550a04c7c335732",
+            "bf58169e98299dfb",
+            "f8cea802d4c0d66d",
+            "91b1e01a79364f13"
         ],
-        "x": 74,
+        "x": 54,
         "y": 139,
-        "w": 992,
-        "h": 782
+        "w": 1052,
+        "h": 1362
     },
     {
         "id": "d9fce622d094af49",
@@ -54,8 +82,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 160,
-        "y": 400,
+        "x": 160.00008392333984,
+        "y": 406.00004386901855,
         "wires": [
             [
                 "67aed9813bfb2709",
@@ -76,8 +104,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 460,
-        "y": 340,
+        "x": 460.00008392333984,
+        "y": 346.00004386901855,
         "wires": []
     },
     {
@@ -87,7 +115,7 @@
         "g": "1fa6a267bed81c34",
         "name": "",
         "group": "2e484d67cec38b91",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "gtype": "donut",
@@ -102,11 +130,11 @@
             "#57f542"
         ],
         "seg1": "10.8",
-        "seg2": "11.5",
+        "seg2": "11",
         "diff": false,
         "className": "",
-        "x": 910,
-        "y": 380,
+        "x": 906.0001373291016,
+        "y": 367.0000648498535,
         "wires": []
     },
     {
@@ -115,23 +143,22 @@
         "z": "0a8d24b7155cfe39",
         "g": "1fa6a267bed81c34",
         "name": "function 18",
-        "func": "/*\ncalculations for voltage and percentage \nusing averaging calculated analog reading\n*/\n\nlet analogvalue = msg.payload[\"sensor\"][\"analogValue\"];\nlet aveAnalogValue = 0;\nlet numSamples = 8;\nfor (let i = 0; i < numSamples; i++) {\n  aveAnalogValue += analogvalue / numSamples;\n}\n\nlet voltage = ((aveAnalogValue * 12.13) / (4096.00)).toFixed(1);\n//msg.payload = (voltage);\nlet percentCalc = Number(voltage)\n\nlet percentage = ((percentCalc/12.13)*(100/1)).toFixed(1);\n\nreturn [{\"payload\": voltage + \"V\"}, {\"payload\": percentage + \"%\"}];\n\n\n",
+        "func": "/*\ncalculations for voltage and percentage \nusing averaging calculated analog reading\n*/\n\nlet analogvalue = msg.payload[\"sensor\"][\"analogValue\"];\nlet aveAnalogValue = 0;\nlet numSamples = 8;\nlet batFull;\nfor (let i = 0; i < numSamples; i++) {\n  aveAnalogValue += analogvalue / numSamples;\n}\n\nlet voltage = +((aveAnalogValue * 12.13) / (4096.00)).toFixed(1);\nlet percentage = ((voltage/12.13)*(100/1)).toFixed(1);\n\nif (voltage >= 12.1){\n  return [{ \"payload\": 12 + \"V\" }, { \"payload\": 100 + \"%\" }];\n}\n\nreturn [{ \"payload\": voltage + \"V\" }, { \"payload\": percentage + \"%\" }];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 470,
-        "y": 400,
+        "x": 470.00008392333984,
+        "y": 406.00004386901855,
         "wires": [
             [
-                "317b453487135de5",
-                "6d223eea7008c66d"
+                "8b0c28e0658d855f",
+                "5495bcd642eedf1b"
             ],
             [
-                "f89026ed870f88be",
-                "95c3bf5c34598002"
+                "5d89fae3da42ee43"
             ]
         ]
     },
@@ -148,7 +175,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 920,
+        "x": 880,
         "y": 320,
         "wires": []
     },
@@ -165,8 +192,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 920,
-        "y": 500,
+        "x": 880.0000152587891,
+        "y": 467.00000858306885,
         "wires": []
     },
     {
@@ -175,7 +202,7 @@
         "z": "0a8d24b7155cfe39",
         "g": "1fa6a267bed81c34",
         "group": "2e484d67cec38b91",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -187,8 +214,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 910,
-        "y": 440,
+        "x": 906.0000762939453,
+        "y": 421.00003814697266,
         "wires": []
     },
     {
@@ -216,8 +243,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 760,
+        "x": 250,
+        "y": 1040,
         "wires": [
             [
                 "496fa20b1ea5dc7b",
@@ -232,8 +259,8 @@
         "g": "1fa6a267bed81c34",
         "name": "Analog value straight to a topic",
         "info": "",
-        "x": 230,
-        "y": 680,
+        "x": 530,
+        "y": 920,
         "wires": []
     },
     {
@@ -249,8 +276,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 600,
-        "y": 700,
+        "x": 580,
+        "y": 1000,
         "wires": []
     },
     {
@@ -260,7 +287,7 @@
         "g": "1fa6a267bed81c34",
         "name": "Analog Value sent in JSON format",
         "info": "",
-        "x": 460,
+        "x": 560,
         "y": 280,
         "wires": []
     },
@@ -279,18 +306,18 @@
         "label": "units",
         "format": "{{value}}",
         "min": 0,
-        "max": 10,
+        "max": "12",
         "colors": [
             "#ed3326",
             "#e6e600",
             "#45f722"
         ],
-        "seg1": "",
+        "seg1": "10.8",
         "seg2": "",
         "diff": false,
         "className": "",
-        "x": 940,
-        "y": 740,
+        "x": 1000,
+        "y": 1000,
         "wires": []
     },
     {
@@ -311,8 +338,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 910,
-        "y": 800,
+        "x": 1030,
+        "y": 1060,
         "wires": []
     },
     {
@@ -321,23 +348,22 @@
         "z": "0a8d24b7155cfe39",
         "g": "1fa6a267bed81c34",
         "name": "function 19",
-        "func": "\nlet analogvalue = msg.payload;\nlet aveAnalogValue = 0;\nlet numSamples = 8;\nfor (let i = 0; i < numSamples; i++) {\n  aveAnalogValue += analogvalue / numSamples;\n}\n\nlet voltage = ((aveAnalogValue * 12.13) / (4096.00)).toFixed(1);\nlet percentCalc = Number(voltage);\n\nlet percentage = ((percentCalc/12.13)*(100/1)).toFixed(1);\n\nreturn [{\"payload\": voltage + \"V\"}, {\"payload\": percentage + \"%\"}];\n\n\n",
+        "func": "\nlet analogvalue = msg.payload;\nlet aveAnalogValue = 0;\nlet numSamples = 10;\nfor (let i = 0; i < numSamples; i++) {\n  aveAnalogValue += analogvalue / numSamples;\n}\n\nlet voltage = +((aveAnalogValue * 12.13) / (4096.00)).toFixed(1);\nlet percentCalc = Number(voltage);\n\nlet percentage = ((percentCalc/12.13)*(100/1)).toFixed(1);\nif (voltage >= 12.1) {\n  return [{ \"payload\": 12 + \"V\" }, { \"payload\": 100 + \"%\" }];\n}\n\nreturn [{\"payload\": voltage + \"V\"}, {\"payload\": percentage + \"%\"}];\n\n\n",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
-        "y": 760,
+        "x": 590,
+        "y": 1040,
         "wires": [
             [
-                "93c6692bd5807889",
-                "e6ea2845f6ccd86f"
+                "6ffea6cc021b3c9e",
+                "b730fadf65fb7641"
             ],
             [
-                "c8e08f480e2262aa",
-                "40ef7b155a34076a"
+                "71fa3bd66d17b9af"
             ]
         ]
     },
@@ -355,7 +381,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 960,
-        "y": 660,
+        "y": 940,
         "wires": []
     },
     {
@@ -372,7 +398,799 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 960,
-        "y": 880,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "30099b880ba883c1",
+        "type": "mqtt out",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "topic": "esp32/battery_guage/inTopic",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1859adcc0878b50c",
+        "x": 680,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "3728876c7f66ae94",
+        "type": "comment",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "Server Shutdown and restart",
+        "info": "",
+        "x": 540,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "25d86bebb4c30f4b",
+        "type": "debug",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "debug 54",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "de090e760838bf17",
+        "type": "ui_button",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "group": "2e484d67cec38b91",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Shutdown",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 200,
+        "y": 1320,
+        "wires": [
+            [
+                "e20d5c470a79d926",
+                "e2ce5f27caca7b61"
+            ]
+        ]
+    },
+    {
+        "id": "e20d5c470a79d926",
+        "type": "rbe",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 430,
+        "y": 1320,
+        "wires": [
+            [
+                "30099b880ba883c1",
+                "17eef50acf312767"
+            ]
+        ]
+    },
+    {
+        "id": "adeaae6096d3c32d",
+        "type": "ui_button",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "group": "2e484d67cec38b91",
+        "order": 4,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "label": "Boot",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "0",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 210,
+        "y": 1380,
+        "wires": [
+            [
+                "e20d5c470a79d926",
+                "e2ce5f27caca7b61"
+            ]
+        ]
+    },
+    {
+        "id": "a8fd90139eecfcd2",
+        "type": "ui_text",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "group": "2e484d67cec38b91",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Server Status",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 940,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "30b77c82ec718101",
+        "type": "trigger",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "op1": "Server Shutting down........",
+        "op2": "Server Off",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "9",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 740,
+        "y": 1360,
+        "wires": [
+            [
+                "a8fd90139eecfcd2"
+            ]
+        ]
+    },
+    {
+        "id": "e06136ba4c0b7aab",
+        "type": "trigger",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "op1": "Booting up ............",
+        "op2": "Server On",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "9",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 740,
+        "y": 1400,
+        "wires": [
+            [
+                "a8fd90139eecfcd2"
+            ]
+        ]
+    },
+    {
+        "id": "e2ce5f27caca7b61",
+        "type": "rbe",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 430,
+        "y": 1380,
+        "wires": [
+            [
+                "dc2cdb3ef861a9b7"
+            ]
+        ]
+    },
+    {
+        "id": "dc2cdb3ef861a9b7",
+        "type": "function",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "function 27",
+        "func": "if(msg.payload == \"0\"){\n    msg.payload = \"0\";\n    return[null,msg];\n}else if (msg.payload == \"1\"){\n    msg.payload = \"1\";\n    return[msg,null]\n}\nreturn msg;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 1380,
+        "wires": [
+            [
+                "30b77c82ec718101"
+            ],
+            [
+                "e06136ba4c0b7aab"
+            ]
+        ]
+    },
+    {
+        "id": "6ffea6cc021b3c9e",
+        "type": "function",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "function 28",
+        "func": "let voltage = +(msg.payload);\nvar offState;\nif(voltage <=11.0){\n    msg.payload = 0;\n    offState = true;\n    return [msg,null];\n}else if(voltage >= 11.5 &&  offState == true){\n    msg.payload = 1;\n    //offState=false;\n    return [null,msg];\n}\n// return msg;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 1240,
+        "wires": [
+            [
+                "e8913ee57b9fb408"
+            ],
+            [
+                "e8913ee57b9fb408"
+            ]
+        ]
+    },
+    {
+        "id": "e8913ee57b9fb408",
+        "type": "rbe",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 430,
+        "y": 1240,
+        "wires": [
+            [
+                "30099b880ba883c1",
+                "25d86bebb4c30f4b"
+            ]
+        ]
+    },
+    {
+        "id": "17eef50acf312767",
+        "type": "debug",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "debug 55",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "1e8a3aa3615015b0",
+        "type": "mqtt out",
+        "z": "0a8d24b7155cfe39",
+        "name": "",
+        "topic": "esp32/battery_guage/inTopic",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1859adcc0878b50c",
+        "x": 660.0000839233398,
+        "y": 606.0000438690186,
+        "wires": []
+    },
+    {
+        "id": "db9da59c7e76b7d6",
+        "type": "comment",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "Server Shutdown and restart",
+        "info": "",
+        "x": 540,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "9b0271fd729d8292",
+        "type": "debug",
+        "z": "0a8d24b7155cfe39",
+        "name": "debug 56",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700.0000839233398,
+        "y": 566.0000438690186,
+        "wires": []
+    },
+    {
+        "id": "a7a4363a84240c98",
+        "type": "ui_button",
+        "z": "0a8d24b7155cfe39",
+        "name": "",
+        "group": "2e484d67cec38b91",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Shutdown",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 180.00008392333984,
+        "y": 646.0000438690186,
+        "wires": [
+            [
+                "a4d1699febabdaef",
+                "50904ecdb9a83663"
+            ]
+        ]
+    },
+    {
+        "id": "a4d1699febabdaef",
+        "type": "rbe",
+        "z": "0a8d24b7155cfe39",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 410.00008392333984,
+        "y": 646.0000438690186,
+        "wires": [
+            [
+                "1e8a3aa3615015b0",
+                "4e8c70e2a4cd1dfb"
+            ]
+        ]
+    },
+    {
+        "id": "3fe23f43a64ebf39",
+        "type": "ui_button",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "group": "2e484d67cec38b91",
+        "order": 4,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "label": "Boot",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "0",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 190.00008392333984,
+        "y": 706.0000438690186,
+        "wires": [
+            [
+                "a4d1699febabdaef",
+                "50904ecdb9a83663"
+            ]
+        ]
+    },
+    {
+        "id": "bf58169e98299dfb",
+        "type": "ui_text",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "group": "2e484d67cec38b91",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Server Status",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 920,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "3253435281b61bd9",
+        "type": "trigger",
+        "z": "0a8d24b7155cfe39",
+        "name": "",
+        "op1": "Server Shutting down........",
+        "op2": "Server Off",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "9",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 720.0000839233398,
+        "y": 686.0000438690186,
+        "wires": [
+            [
+                "bf58169e98299dfb"
+            ]
+        ]
+    },
+    {
+        "id": "148615ef23620f48",
+        "type": "trigger",
+        "z": "0a8d24b7155cfe39",
+        "name": "",
+        "op1": "Booting up ............",
+        "op2": "Server On",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "9",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 720.0000839233398,
+        "y": 726.0000438690186,
+        "wires": [
+            [
+                "bf58169e98299dfb"
+            ]
+        ]
+    },
+    {
+        "id": "50904ecdb9a83663",
+        "type": "rbe",
+        "z": "0a8d24b7155cfe39",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 410.00008392333984,
+        "y": 706.0000438690186,
+        "wires": [
+            [
+                "cc79d1860cf5f7be"
+            ]
+        ]
+    },
+    {
+        "id": "cc79d1860cf5f7be",
+        "type": "function",
+        "z": "0a8d24b7155cfe39",
+        "name": "function 29",
+        "func": "if(msg.payload == \"0\"){\n    msg.payload = \"0\";\n    return[null,msg];\n}else if (msg.payload == \"1\"){\n    msg.payload = \"1\";\n    return[msg,null]\n}\nreturn msg;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550.0000839233398,
+        "y": 706.0000438690186,
+        "wires": [
+            [
+                "3253435281b61bd9"
+            ],
+            [
+                "148615ef23620f48"
+            ]
+        ]
+    },
+    {
+        "id": "8b0c28e0658d855f",
+        "type": "function",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "function 30",
+        "func": "let voltage = +(msg.payload);\nvar offState = 0;\nif(voltage <=11.0){\n    msg.payload = 0;\n    //offState = 1;\n    return [msg,null];\n}else if(voltage >= 11.5 /*&& offState == 1*/){\n    msg.payload = 1;\n    //offState=0;\n    return [null,msg];\n}\n// return msg;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190.00008392333984,
+        "y": 566.0000438690186,
+        "wires": [
+            [
+                "bba5b426e096f51e"
+            ],
+            [
+                "bba5b426e096f51e"
+            ]
+        ]
+    },
+    {
+        "id": "bba5b426e096f51e",
+        "type": "rbe",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 410.00008392333984,
+        "y": 566.0000438690186,
+        "wires": [
+            [
+                "1e8a3aa3615015b0",
+                "9b0271fd729d8292"
+            ]
+        ]
+    },
+    {
+        "id": "4e8c70e2a4cd1dfb",
+        "type": "debug",
+        "z": "0a8d24b7155cfe39",
+        "name": "debug 57",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700.0000839233398,
+        "y": 646.0000438690186,
+        "wires": []
+    },
+    {
+        "id": "5495bcd642eedf1b",
+        "type": "delay-gate",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "triggerPayload": "",
+        "triggerPayloadType": "str",
+        "delayDuration": "55",
+        "delayUnits": "s",
+        "openDuration": 5,
+        "openUnits": "s",
+        "closeGate": true,
+        "x": 710.0000839233398,
+        "y": 366.00004386901855,
+        "wires": [
+            [
+                "6d223eea7008c66d",
+                "317b453487135de5"
+            ]
+        ]
+    },
+    {
+        "id": "5d89fae3da42ee43",
+        "type": "delay-gate",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "triggerPayload": "",
+        "triggerPayloadType": "str",
+        "delayDuration": "55",
+        "delayUnits": "s",
+        "openDuration": 5,
+        "openUnits": "s",
+        "closeGate": true,
+        "x": 710,
+        "y": 420,
+        "wires": [
+            [
+                "95c3bf5c34598002",
+                "f89026ed870f88be"
+            ]
+        ]
+    },
+    {
+        "id": "b730fadf65fb7641",
+        "type": "delay-gate",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "triggerPayload": "",
+        "triggerPayloadType": "str",
+        "delayDuration": "55",
+        "delayUnits": "s",
+        "openDuration": 5,
+        "openUnits": "s",
+        "closeGate": true,
+        "x": 790,
+        "y": 1000,
+        "wires": [
+            [
+                "e6ea2845f6ccd86f",
+                "93c6692bd5807889"
+            ]
+        ]
+    },
+    {
+        "id": "71fa3bd66d17b9af",
+        "type": "delay-gate",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "triggerPayload": "",
+        "triggerPayloadType": "str",
+        "delayDuration": "55",
+        "delayUnits": "s",
+        "openDuration": 5,
+        "openUnits": "s",
+        "closeGate": true,
+        "x": 790,
+        "y": 1060,
+        "wires": [
+            [
+                "40ef7b155a34076a",
+                "c8e08f480e2262aa"
+            ]
+        ]
+    },
+    {
+        "id": "7017e49d5574d23d",
+        "type": "comment",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "READ ME",
+        "info": "****Pallets to install for this project:\n\nnode-red-contrib-delay-gate\nnode-red-dashboard",
+        "x": 160,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "3b514e52b84a585f",
+        "type": "mqtt in",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "topic": "esp32/battery_guage/relaystatus",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "60fadd3c0926843a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 690,
+        "y": 780,
+        "wires": [
+            [
+                "8550a04c7c335732",
+                "bf58169e98299dfb"
+            ]
+        ]
+    },
+    {
+        "id": "8550a04c7c335732",
+        "type": "debug",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "debug 58",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "f8cea802d4c0d66d",
+        "type": "mqtt in",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "",
+        "topic": "esp32/battery_guage/relaystatus",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1859adcc0878b50c",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 710,
+        "y": 1460,
+        "wires": [
+            [
+                "91b1e01a79364f13",
+                "a8fd90139eecfcd2"
+            ]
+        ]
+    },
+    {
+        "id": "91b1e01a79364f13",
+        "type": "debug",
+        "z": "0a8d24b7155cfe39",
+        "g": "1fa6a267bed81c34",
+        "name": "debug 59",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 1460,
         "wires": []
     },
     {
@@ -410,7 +1228,7 @@
         "tab": "799b2eecb386da4c",
         "order": 2,
         "disp": true,
-        "width": "5",
+        "width": 7,
         "collapse": false,
         "className": ""
     },
@@ -424,6 +1242,37 @@
         "width": "6",
         "collapse": false,
         "className": ""
+    },
+    {
+        "id": "60fadd3c0926843a",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "172.17.0.2",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "3",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "connection",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "MQTT is connected!",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "connection",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "MQTT is disconnected!",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
     },
     {
         "id": "799b2eecb386da4c",
