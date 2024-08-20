@@ -20,8 +20,6 @@ all calculations will be done on Node-red with this sketch.
 //Variables
 int analogValue;
 
-
-
 SimpleTimer Timer;
 
 // MQTT Server
@@ -52,8 +50,8 @@ void setup_wifi() {
   Serial.print(mqtt_server);
 }
 
-void callback(char* topic, byte* payload, unsigned int length) {   //callback includes topic and payload ( from which (topic) the payload is comming)
-// Shutdown / bootup comand
+void callback(char* topic, byte* payload, unsigned int length) {   //callback includes topic and payload ( from which (topic) the payload is coming)
+//Shutdown/bootup command (power button simulation
   for (int i=0;i<length;i++) {
     if (strcmp(topic,"esp32/battery_guage/inTopic")==0){
       char receivedChar = (char)payload[i];
@@ -63,7 +61,7 @@ void callback(char* topic, byte* payload, unsigned int length) {   //callback in
         client.publish("esp32/battery_guage/relaystatus", "Shutting Down Servers.....");
         delay(2000);
         digitalWrite(relay1, LOW);
-        delay(1000);
+        delay(10000);
         client.publish("esp32/battery_guage/relaystatus", "Shutdown Completed!");
       
       }else if  (receivedChar == '0'){           
@@ -71,7 +69,7 @@ void callback(char* topic, byte* payload, unsigned int length) {   //callback in
         client.publish("esp32/battery_guage/relaystatus", "Booting Up Servers.....");
         delay(2000);
         digitalWrite(relay1, LOW);
-        delay(1000);
+        delay(10000);
         client.publish("esp32/battery_guage/relaystatus", "Booting Completed!");
       }
     }
